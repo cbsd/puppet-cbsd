@@ -41,7 +41,7 @@ cbsd::jails:
 
 Works with FreeBSD 10+ and CBSD 10.3.3+
 
-Currenltry only jail is supported by this module. Bhyve and XEN - work in progress.
+Currently only jail is supported by this module. Bhyve and XEN - work in progress.
 
 ## Contributing
 

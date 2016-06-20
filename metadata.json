@@ -1,7 +1,7 @@
 {
-  "name": "puppet-cbsd",
+  "name": "olevole-cbsd",
   "version": "0.1.0",
-  "author": "ConvectIX",
+  "author": "olevole",
   "summary": "Manage FreeBSD CBSD with Puppet",
   "license": "BSD",
   "source": "https://github.com/cbsd/puppet-cbsd",
@@ -10,5 +10,22 @@
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
-  "data_provider": null
+  "data_provider": null,
+  "description": "Manage CBSD with Puppet",
+  "tags": [
+    "cluster",
+    "cbsd",
+    "jail",
+    "bhyve",
+    "xen"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "10",
+        "11"
+      ]
+    }
+  ]
 }
