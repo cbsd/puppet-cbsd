@@ -1,0 +1,14 @@
+{
+  "name": "puppet-cbsd",
+  "version": "0.1.0",
+  "author": "ConvectIX",
+  "summary": "Manage FreeBSD CBSD with Puppet",
+  "license": "BSD",
+  "source": "https://github.com/cbsd/puppet-cbsd",
+  "project_page": "https://github.com/cbsd/puppet-cbsd",
+  "issues_url": "https://github.com/cbsd/puppet-cbsd/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
