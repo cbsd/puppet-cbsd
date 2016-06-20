@@ -23,7 +23,7 @@ cbsd::jail { 'myjail0':
 
 Jails can be easily managed from Hiera as well:
 ```YAML
-jails::jails:
+cbsd::jails:
     myjail0:
 	host_hostname: 'myjail0.my.domain'
 ```
