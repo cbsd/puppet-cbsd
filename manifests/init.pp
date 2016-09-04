@@ -43,19 +43,52 @@
 # Copyright 2016 Oleg Ginzburg
 #
 class cbsd (
-  $my_class          = $cbsd::params::my_class,
-  $workdir           = $cbsd::params::workdir,
-  $config_system_dir = $cbsd::params::config_system_dir,
-  $cbsd              = $cbsd::params::cbsd,
-  $defaults          = $cbsd::params::defaults,
-  $template          = $cbsd::params::template,
+	$my_class          = $cbsd::params::my_class,
+	$workdir           = $cbsd::params::workdir,
+	$config_system_dir = $cbsd::params::config_system_dir,
+	$cbsd              = $cbsd::params::cbsd,
+	$defaults          = $cbsd::params::defaults,
+	$template          = $cbsd::params::template,
+	$nodename          = $cbsd::params::nodename,
+	$nat_enable        = $cbsd::params::nat_enable,
+	$nodeip            = $cbsd::params::nodeip,
+	$jnameserver       = $cbsd::params::jnameserver,
+	$nodeippool        = $cbsd::params::nodeippool,
+	$fbsdrepo          = $cbsd::params::fbsdrepo,
+	$zfsfeat           = $cbsd::params::zfsfeat,
+	$hammerfeat        = $cbsd::params::hammerfeat,
+	$stable            = $cbsd::params::stable,
+	$parallel          = $cbsd::params::parallel,
+	$sqlreplica        = $cbsd::params::sqlreplica,
+
 ) inherits cbsd::params {
 
-  if $my_class != '' {
-    include $my_class
-  }
+	if $my_class != '' {
+		include $my_class
+	}
 
-  # create defined cbsd
-  create_resources('cbsd::jail', $cbsd, $defaults)
+	include cbsd::prepare
+
+	# create defined cbsd
+	create_resources('cbsd::jail', $cbsd, $defaults)
+
+	package { $cbsd_packages:
+                ensure => $ensure,
+        }
+
+        exec {"create_initenv":
+                command => "/usr/local/cbsd/sudoexec/initenv ${initenv_tmp}",
+                refreshonly => true,
+        }
+
+        file { "${initenv_tmp}":
+                mode => '0444',
+                ensure  => present,
+                content => template("${module_name}/initenv.conf.erb"),
+                owner => "cbsd",
+                notify  => Exec["create_initenv"],
+                require => Package["${cbsd_packages}"],
+        }
+
 
 }

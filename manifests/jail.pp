@@ -64,9 +64,8 @@ define cbsd::jail (
   $manage_file_path = "${config_system_dir}/${name}/puppet.conf"
 
   exec {"create_jail_$name":
-                command => "env NOCOLOR=1 /usr/local/bin/cbsd jcreate inter=0 jconf=$manage_file_path autorestart=1",
-		refreshonly => true,
-#                onlyif => "cbsd jstatus jname=$name",
+	command => "env NOCOLOR=1 /usr/local/bin/cbsd jcreate inter=0 jconf=$manage_file_path autorestart=1",
+	refreshonly => true,
   }
 
 

@@ -18,9 +18,17 @@ CBSD is wrapper around FreeBSD jail bhyve and XEN. For more information please v
 ```Puppet
 
 class { 'cbsd':
+	jnameserver => "8.8.8.8",
+	nat_enable => '1',
 	defaults => {
 		'workdir'         => '/usr/jails',
 	}
+}
+
+# fetch specified base from the repo
+class { "cbsd::freebsd_bases":
+	ver => [ '12' ],
+	stable => 1,
 }
 
 cbsd::jail { 'myjail0':
@@ -39,7 +47,7 @@ cbsd::jails:
 
 ## Limitations
 
-Works with FreeBSD 10+ and CBSD 10.3.3+
+Works with FreeBSD 10+ and CBSD 11.0.0+
 
 Currently only jail is supported by this module. Bhyve and XEN - work in progress.
 

@@ -45,4 +45,21 @@ class cbsd::params {
   $cbsd    = {}
   $my_class = ''
   $template = 'cbsd/jail.conf.erb'
+
+  # node
+  $nodename	= "$fqdn"
+  $nat_enable	= "1"
+  $nodeip	= "10.0.0.10"
+  $jnameserver	= "8.8.8.8,8.8.4.4"
+  $nodeippool	= "10.0.0.0/24"
+  $fbsdrepo	= "1"
+  $zfsfeat	= "1"
+  $hammerfeat	= "0"
+  $stable	= "0"
+  $parallel	= "5"
+  $sqlreplica	= "1"
+
+  $initenv_tmp	= "/tmp/initenv.conf"
+  $cbsd_packages= "sysutils/cbsd"
 }
+
