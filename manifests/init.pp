@@ -73,22 +73,21 @@ class cbsd (
 	create_resources('cbsd::jail', $cbsd, $defaults)
 
 	package { $cbsd_packages:
-                ensure => $ensure,
-        }
+		ensure => $ensure,
+	}
 
-        exec {"create_initenv":
-                command => "/usr/local/cbsd/sudoexec/initenv ${initenv_tmp}",
-                refreshonly => true,
-        }
+	exec {"create_initenv":
+		command => "/usr/local/cbsd/sudoexec/initenv ${initenv_tmp}",
+		refreshonly => true,
+	}
 
-        file { "${initenv_tmp}":
-                mode => '0444',
-                ensure  => present,
-                content => template("${module_name}/initenv.conf.erb"),
-                owner => "cbsd",
-                notify  => Exec["create_initenv"],
-                require => Package["${cbsd_packages}"],
-        }
-
+	file { "${initenv_tmp}":
+		mode => '0444',
+		ensure  => present,
+		content => template("${module_name}/initenv.conf.erb"),
+		owner => "cbsd",
+		notify  => Exec["create_initenv"],
+		require => Package["${cbsd_packages}"],
+	}
 
 }

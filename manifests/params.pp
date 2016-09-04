@@ -62,4 +62,3 @@ class cbsd::params {
   $initenv_tmp	= "/tmp/initenv.conf"
   $cbsd_packages= "sysutils/cbsd"
 }
-
