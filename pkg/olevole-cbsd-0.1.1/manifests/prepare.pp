@@ -15,6 +15,6 @@ class cbsd::prepare inherits cbsd::params  {
 	exec { "cbsd_add_bases_$ver":
 			command => "/bin/rm -f ${initenv_tmp}",
 			unless  => "/usr/local/bin/cbsd date",
-			require => File["$dist_dir/sudoexec/initenv"],
+			require => Package[$cbsd_packages],
 	}
 }

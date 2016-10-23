@@ -1,6 +1,6 @@
 {
   "name": "olevole-cbsd",
-  "version": "0.1.2",
+  "version": "0.1.1",
   "author": "olevole",
   "summary": "Manage FreeBSD CBSD with Puppet",
   "license": "BSD",
@@ -24,8 +24,7 @@
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
         "10",
-        "11",
-        "12"
+        "11"
       ]
     }
   ]

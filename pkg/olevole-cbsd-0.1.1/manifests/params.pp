@@ -1,5 +1,4 @@
 class cbsd::params {
-  # jail settings
   $workdir      = '/usr/jails'
   $config_file_owner = 'root'
   $config_file_group = 'wheel'
@@ -60,9 +59,6 @@ class cbsd::params {
   $parallel	= "5"
   $sqlreplica	= "1"
 
-  # other/special
-  $initenv_tmp	 = "/tmp/initenv.conf"
-  $cbsd_packages = "sysutils/cbsd"
-  $dist_dir      = "/usr/local/cbsd"
-  $manage_repo   = true
+  $initenv_tmp	= "/tmp/initenv.conf"
+  $cbsd_packages= "sysutils/cbsd"
 }

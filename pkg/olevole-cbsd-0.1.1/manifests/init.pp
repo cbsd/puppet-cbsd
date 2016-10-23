@@ -43,7 +43,6 @@
 # Copyright 2016 Oleg Ginzburg
 #
 class cbsd (
-	$manage_repo       = $cbsd::params::manage_repo,
 	$my_class          = $cbsd::params::my_class,
 	$workdir           = $cbsd::params::workdir,
 	$config_system_dir = $cbsd::params::config_system_dir,
@@ -73,10 +72,8 @@ class cbsd (
 	# create defined cbsd
 	create_resources('cbsd::jail', $cbsd, $defaults)
 
-	if $manage_repo {
-		package { $cbsd_packages:
-			ensure => $ensure,
-		}
+	package { $cbsd_packages:
+		ensure => $ensure,
 	}
 
 	exec {"create_initenv":
@@ -90,7 +87,7 @@ class cbsd (
 		content => template("${module_name}/initenv.conf.erb"),
 		owner => "cbsd",
 		notify  => Exec["create_initenv"],
-		require => File["$dist_dir/sudoexec/initenv"],
+		require => Package["${cbsd_packages}"],
 	}
 
 }

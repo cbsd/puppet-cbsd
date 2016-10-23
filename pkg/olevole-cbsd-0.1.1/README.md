@@ -25,16 +25,6 @@ class { 'cbsd':
 	}
 }
 
-# If you install cbsd manually: don't use pkg for
-# installing CBSD:
-
-class { 'cbsd':
-	manage_repo => false,
-	defaults => {
-		'workdir'         => '/usr/jails',
-	}
-}
-
 # fetch specified base from the repo
 class { "cbsd::freebsd_bases":
 	ver => [ '12' ],
@@ -51,8 +41,8 @@ cbsd::jail { 'myjail0':
 Jails can be easily managed from Hiera as well:
 ```YAML
 cbsd::jails:
-  myjail0:
-    host_hostname: 'myjail0.my.domain'
+    myjail0:
+	host_hostname: 'myjail0.my.domain'
 ```
 
 ## Limitations
@@ -67,3 +57,4 @@ Currently only jail is supported by this module. Bhyve and XEN - work in progres
 * Commit your changes (`git commit -am 'Added some feature'`)
 * Push to the branch (`git push`)
 * Create new Pull Request
+
