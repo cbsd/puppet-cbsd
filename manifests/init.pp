@@ -75,7 +75,7 @@ class cbsd (
 
 	if $manage_repo {
 		package { $cbsd_packages:
-			ensure => $ensure,
+			ensure => installed,
 		}
 	}
 

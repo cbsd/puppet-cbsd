@@ -65,4 +65,5 @@ class cbsd::params {
   $cbsd_packages = "sysutils/cbsd"
   $dist_dir      = "/usr/local/cbsd"
   $manage_repo   = true
+  $config_system_dir = ''
 }
