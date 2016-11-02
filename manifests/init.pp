@@ -79,9 +79,18 @@ class cbsd (
 		}
 	}
 
+	file { "$workdir/cbsd.conf":  }
 	exec {"create_initenv":
 		command => "/usr/local/cbsd/sudoexec/initenv ${initenv_tmp}",
 		refreshonly => true,
+		onlyif => "test -f $dist_dir/sudoexec/initenv",
+		creates => "$workdir/cbsd.conf",
+	}
+
+	# delete template if not initialized in workdir
+	exec { "rm_template":
+		command => "rm ${initenv_tmp}",
+		onlyif => "test ! -f $workdir/cbsd.conf",
 	}
 
 	file { "${initenv_tmp}":
@@ -90,7 +99,7 @@ class cbsd (
 		content => template("${module_name}/initenv.conf.erb"),
 		owner => "cbsd",
 		notify  => Exec["create_initenv"],
-		require => File["$dist_dir/sudoexec/initenv"],
+		require => File["$workdir/cbsd.conf"],
 	}
 
 }
