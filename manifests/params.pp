@@ -49,8 +49,8 @@ class cbsd::params {
 
   # node
   $nodename	= "$fqdn"
-  $nat_enable	= "1"
-  $nodeip	= "10.0.0.10"
+  $nat_enable	= "pf"
+  $nodeip	= "default"
   $jnameserver	= "8.8.8.8,8.8.4.4"
   $nodeippool	= "10.0.0.0/24"
   $fbsdrepo	= "1"
@@ -59,6 +59,7 @@ class cbsd::params {
   $stable	= "0"
   $parallel	= "5"
   $sqlreplica	= "1"
+  $natip	= "default"
 
   # other/special
   $initenv_tmp	 = "/tmp/initenv.conf"

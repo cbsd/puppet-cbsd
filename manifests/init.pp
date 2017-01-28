@@ -61,7 +61,7 @@ class cbsd (
 	$stable            = $cbsd::params::stable,
 	$parallel          = $cbsd::params::parallel,
 	$sqlreplica        = $cbsd::params::sqlreplica,
-
+	$natip             = $cbsd::params::natip,
 ) inherits cbsd::params {
 
 	if $my_class != '' {
