@@ -81,7 +81,7 @@ class cbsd (
 
 	file { "$workdir/cbsd.conf":  }
 	exec {"create_initenv":
-		command => "/usr/local/cbsd/sudoexec/initenv ${initenv_tmp}",
+		command => "/usr/local/cbsd/sudoexec/initenv inter=0 ${initenv_tmp}",
 		refreshonly => true,
 		onlyif => "test -f $dist_dir/sudoexec/initenv",
 		creates => "$workdir/cbsd.conf",
