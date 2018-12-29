@@ -45,6 +45,12 @@ cbsd::jail { 'myjail0':
 	pkg_bootstrap => '0',
 	host_hostname => 'myjail0.my.domain',
 }
+cbsd::jail { 'myjail1':
+	pkg_bootstrap => '0',
+	host_hostname => 'myjail1.my.domain',
+	ensure => 'absent',
+	status => 'stopped'
+}
 
 ```
 

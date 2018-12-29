@@ -1,6 +1,9 @@
+# default global params for CBSD
 class cbsd::params {
   # jail settings
-  $workdir      = '/usr/jails'
+  $ensure            = 'installed'
+  $distdir           = '/usr/local/cbsd'
+  $workdir           = '/usr/jails'
   $config_file_owner = 'root'
   $config_file_group = 'wheel'
   $config_file_mode  = '0444'
@@ -41,6 +44,14 @@ class cbsd::params {
   $exec_start            = '/bin/sh /etc/rc'
   $exec_stop             = '/bin/sh /etc/rc.shutdown'
   $emulator              = 'jail'
+  $relative_path         = '1'
+  $mount_fstab           = undef
+  $data                  = undef
+  $rcconf                = undef
+  $prestart              = undef
+  $prestop               = undef
+  $exec_mster_prestop    = undef
+  $jailskeldir           = undef
 
   # general
   $cbsd    = {}
@@ -48,23 +59,23 @@ class cbsd::params {
   $template = 'cbsd/jail.conf.erb'
 
   # node
-  $nodename	= "$fqdn"
-  $nat_enable	= "pf"
-  $nodeip	= "default"
-  $jnameserver	= "8.8.8.8,8.8.4.4"
-  $nodeippool	= "10.0.0.0/24"
-  $fbsdrepo	= "1"
-  $zfsfeat	= "1"
-  $hammerfeat	= "0"
-  $stable	= "0"
-  $parallel	= "5"
-  $sqlreplica	= "1"
-  $natip	= "default"
+  $nodename    = $::fqdn
+  $nat_enable  = 'pf'
+  $nodeip      = 'default'
+  $jnameserver = '8.8.8.8,8.8.4.4'
+  $nodeippool  = '10.0.0.0/24'
+  $fbsdrepo    = '1'
+  $zfsfeat     = '1'
+  $hammerfeat  = '0'
+  $stable      = '0'
+  $parallel    = '5'
+  $sqlreplica  = '1'
+  $natip       = 'default'
 
   # other/special
-  $initenv_tmp	 = "/tmp/initenv.conf"
-  $cbsd_packages = "sysutils/cbsd"
-  $dist_dir      = "/usr/local/cbsd"
+  $initenv_tmp   = '/tmp/initenv.conf'
+  $cbsd_packages = 'sysutils/cbsd'
+  $dist_dir      = '/usr/local/cbsd'
   $manage_repo   = true
   $config_system_dir = ''
 }

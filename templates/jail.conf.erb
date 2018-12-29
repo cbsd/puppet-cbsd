@@ -11,11 +11,14 @@ mount_devfs="<%= @mount_devfs %>";
 allow_mount="<%= @allow_mount %>";
 allow_devfs="<%= @allow_devfs %>";
 allow_nullfs="<%= @allow_nullfs %>";
+allow_fusefs="0";
+allow_raw_sockets="0";
 mount_fstab="<%= @workdir %>/jails-fstab/fstab.<%= @name %>";
 arch="<%= @arch %>";
 mkhostsfile="<%= @mkhostsfile %>";
 devfs_ruleset="<%= @devfs_ruleset %>";
 ver="<%= @ver %>";
+basename="";
 baserw="<%= @baserw %>";
 mount_src="0";
 mount_obj="0";
@@ -24,6 +27,7 @@ mount_ports="<%= @mount_ports %>";
 astart="<%= @astart %>";
 data="<%= @workdir %>/jails-data/<%= @name %>-data";
 vnet="<%= @vnet %>";
+nic_hwaddr="0";
 applytpl="<%= @applytpl %>";
 mdsize="<%= @mdsize %>";
 rcconf="<%= @workdir %>/jails-rcconf/rc.conf_<%= @name %>";
@@ -40,9 +44,20 @@ exec_master_poststop="0";
 exec_master_prestart="0";
 exec_master_prestop="0";
 pkg_bootstrap="<%= @pkg_bootstrap %>";
+with_img_helpers="";
+runasap="0";
+allow_reserved_ports="1";
+allow_unprivileged_proc_debug="1";
+
+persist="1";
+childrenmax="0";
+enforce_statfs="1";
+sysrc_enable="";
 interface="<%= @interface %>";
 jailskeldir="<%= @workdir %>/share/FreeBSD-jail-skel";
 jail_profile="<% @jail_profile %>";
+# root password
+user_pw_root='cbsd';
 exec_start="/bin/sh /etc/rc"
 exec_stop="/bin/sh /etc/rc.shutdown"
 emulator="<%= @emulator %>"

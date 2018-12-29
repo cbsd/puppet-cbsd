@@ -1,3 +1,4 @@
+# manage jail emulator
 define cbsd::jail (
   $workdir               = $cbsd::params::workdir,
   $relative_path         = $cbsd::params::relative_path,
@@ -44,13 +45,15 @@ define cbsd::jail (
   $exec_stop             = $cbsd::params::exec_stop,
   $emulator              = $cbsd::params::emulator,
 
+  $disable               = undef,
   $ensure                = 'present',
   $service_autorestart   = true,
   $template              = '',
-
+  $status                = 'running',
   $depend                = '',
 ) {
   include ::cbsd
+  #include '::cbsd::status'
 
   $bool_disable=str2bool($disable)
   $bool_service_autorestart=str2bool($service_autorestart)
@@ -63,16 +66,10 @@ define cbsd::jail (
 
   $manage_file_path = "${config_system_dir}/${name}/puppet.conf"
 
-  exec {"create_jail_$name":
-	command => "env NOCOLOR=1 /usr/local/bin/cbsd jcreate inter=0 jconf=$manage_file_path autorestart=1",
-	refreshonly => true,
-  }
-
-
-  $manage_service_ensure = $bool_disable ? {
-    true    => 'stopped',
-    default => 'running',
-  }
+#  $manage_service_ensure = $bool_disable ? {
+#    true    => 'stopped',
+#    default => 'running',
+#  }
 
   $manage_service_autorestart = $bool_service_autorestart ? {
     true     => "Service[jail-${name}]",
@@ -89,25 +86,37 @@ define cbsd::jail (
     default => 'present',
   }
 
-  file { "jail.conf-${name}":
-    ensure  => $manage_file_ensure,
-    path    => $manage_file_path,
-    owner   => $cbsd::config_file_owner,
-    group   => $cbsd::config_file_group,
-    mode    => $cbsd::config_file_mode,
-    content => $manage_file_content,
-    #notify  => $manage_service_autorestart,
-    notify  => Exec["create_jail_$name"],
-    require => File["${config_system_dir}/${name}"],
-  }
+  $check_jail_status_cmd="/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstatus ${name}"
 
-  service { "jail-${name}":
-    ensure     => $manage_service_ensure,
-    hasrestart => false,
-    start      => "env NOCOLOR=1 /usr/local/bin/cbsd jstart inter=0 ${name}",
-    stop       => "env NOCOLOR=1 /usr/local/bin/cbsd jstop inter=0 ${name}",
-    restart    => "env NOCOLOR=1 /usr/local/bin/cbsd jrestart inter=0 ${name}",
-    status     => "/usr/sbin/jls -j ${name}",
-    require    => File["jail.conf-${name}"],
+  if $ensure == 'absent' {
+    exec { "remove_jail_${name}":
+      command => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jremove inter=0 jname=${name}",
+      unless  => $check_jail_status_cmd,
+    }
+  } else {
+    exec {"create_jail_${name}":
+      command     => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jcreate inter=0 jconf=${manage_file_path} autorestart=1",
+      refreshonly => true,
+      onlyif      => "/bin/test -f ${manage_file_path}",
+    }
+    file { "jail.conf-${name}":
+      ensure  => $ensure,
+      path    => $manage_file_path,
+      owner   => $cbsd::config_file_owner,
+      group   => $cbsd::config_file_group,
+      mode    => $cbsd::config_file_mode,
+      content => $manage_file_content,
+      notify  => Exec["create_jail_${name}"],
+      require => File["${config_system_dir}/${name}"],
+    }
+    service { "jail-${name}":
+      ensure     => $status,
+      hasrestart => false,
+      start      => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstart inter=0 ${name}",
+      stop       => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstop inter=0 ${name}",
+      restart    => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jrestart inter=0 ${name}",
+      status     => "/usr/sbin/jls -j ${name}",
+      require    => File["jail.conf-${name}"],
+    }
   }
 }
