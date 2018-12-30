@@ -54,7 +54,7 @@ define cbsd::bhyve (
   # bhyve
   $imgsize               = $cbsd::params::imgsize,
   $vm_os_profile         = $cbsd::params::vm_os_profile,
-  $vm_profile            = $cbsd::params::vm_profile,
+  $vm_os_type            = $cbsd::params::vm_os_type,
   $vm_ram                = $cbsd::params::vm_ram,
 ) {
   include ::cbsd
