@@ -1,6 +1,7 @@
 # default global params for CBSD
 class cbsd::params {
   # jail settings
+  $install_method    = 'package'
   $ensure            = 'installed'
   $distdir           = '/usr/local/cbsd'
   $workdir           = '/usr/jails'
@@ -76,6 +77,5 @@ class cbsd::params {
   $initenv_tmp   = '/tmp/initenv.conf'
   $cbsd_packages = 'sysutils/cbsd'
   $dist_dir      = '/usr/local/cbsd'
-  $manage_repo   = true
   $config_system_dir = ''
 }

@@ -17,12 +17,8 @@
 #
 # Here you should define a list of variables that this module would require.
 #
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
+# [*install_method*]
+#  Installation method: git or package
 #
 # Examples
 # --------
@@ -43,7 +39,7 @@
 # Copyright 2016 Oleg Ginzburg
 #
 class cbsd (
-    $manage_repo       = $cbsd::params::manage_repo,
+    $install_method    = $cbsd::params::install_method,
     $my_class          = $cbsd::params::my_class,
     $workdir           = $cbsd::params::workdir,
     $config_system_dir = $cbsd::params::config_system_dir,
@@ -69,10 +65,12 @@ class cbsd (
     }
 
     contain '::cbsd::install'
+    contain '::cbsd::initenv'
     contain '::cbsd::prepare'
 
     Class['cbsd::prepare']
     -> Class['cbsd::install']
+    -> Class['cbsd::initenv']
 
     #notify { $::cbsd_version: }
 
