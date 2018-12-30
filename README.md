@@ -20,9 +20,6 @@ CBSD is wrapper around FreeBSD jail bhyve and XEN. For more information please v
 class { 'cbsd':
 	jnameserver => "8.8.8.8",
 	nat_enable => '1',
-	defaults => {
-		'workdir'         => '/usr/jails',
-	}
 }
 
 # If you install cbsd manually: don't use pkg for
@@ -30,9 +27,7 @@ class { 'cbsd':
 
 class { 'cbsd':
 	manage_repo => false,
-	defaults => {
-		'workdir'         => '/usr/jails',
-	}
+	workdir => '/usr/jails',
 }
 
 # fetch specified base from the repo

@@ -45,7 +45,6 @@ class cbsd (
     $workdir           = $cbsd::params::workdir,
     $config_system_dir = $cbsd::params::config_system_dir,
     $cbsd              = $cbsd::params::cbsd,
-    $defaults          = $cbsd::params::defaults,
     $jail_template     = $cbsd::params::jail_template,
     $bhyve_template    = $cbsd::params::bhyve_template,
     $nodename          = $cbsd::params::nodename,
@@ -77,5 +76,5 @@ class cbsd (
     #notify { $::cbsd_version: }
 
     # create defined cbsd
-    create_resources('cbsd::jail', $cbsd, $defaults)
+    create_resources('cbsd::jail', $cbsd)
 }
