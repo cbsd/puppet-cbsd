@@ -6,6 +6,7 @@ class cbsd::params {
   $ensure             = 'installed'
   $git_ensure         = 'installed'
   $ca_root_nss_ensure = 'installed'
+  $tmux_ensure        = 'installed'
   $distdir            = '/usr/local/cbsd'
   $workdir            = '/usr/jails'
   $config_file_owner  = 'root'
