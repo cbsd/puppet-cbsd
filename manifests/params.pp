@@ -44,6 +44,7 @@ class cbsd::params {
   $exec_master_prestop   = '0'
   $pkg_bootstrap         = '1'
   $interface             = 'auto'
+  $host_hostname         = $::domain
   $jail_profile          = 'default'
   $exec_start            = '/bin/sh /etc/rc'
   $exec_stop             = '/bin/sh /etc/rc.shutdown'
@@ -60,7 +61,8 @@ class cbsd::params {
   # general
   $cbsd    = {}
   $my_class = ''
-  $template = 'cbsd/jail.conf.erb'
+  $jail_template  = 'cbsd/jail.conf.erb'
+  $bhyve_template = 'cbsd/bhyve.conf.erb'
 
   # node
   $nodename    = $::fqdn
@@ -81,4 +83,10 @@ class cbsd::params {
   $cbsd_packages = 'sysutils/cbsd'
   $dist_dir      = '/usr/local/cbsd'
   $config_system_dir = ''
+
+  #bhyve
+  $imgsize               = '10g'
+  $vm_os_profile         = 'freebsd'
+  $vm_profile            = 'FreeBSD-x64-12.0'
+  $vm_ram                = '1g'
 }

@@ -46,7 +46,8 @@ class cbsd (
     $config_system_dir = $cbsd::params::config_system_dir,
     $cbsd              = $cbsd::params::cbsd,
     $defaults          = $cbsd::params::defaults,
-    $template          = $cbsd::params::template,
+    $jail_template     = $cbsd::params::jail_template,
+    $bhyve_template    = $cbsd::params::bhyve_template,
     $nodename          = $cbsd::params::nodename,
     $nat_enable        = $cbsd::params::nat_enable,
     $nodeip            = $cbsd::params::nodeip,
@@ -65,9 +66,9 @@ class cbsd (
       include $my_class
     }
 
-    contain '::cbsd::install'
-    contain '::cbsd::initenv'
-    contain '::cbsd::prepare'
+    contain ::cbsd::install
+    contain ::cbsd::initenv
+    contain ::cbsd::prepare
 
     Class['cbsd::prepare']
     -> Class['cbsd::install']

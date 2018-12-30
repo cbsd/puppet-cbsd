@@ -1,5 +1,5 @@
-# manage jail emulator
-define cbsd::jail (
+# manage bhyve emulator
+define cbsd::bhyve (
   $workdir               = $cbsd::params::workdir,
   $relative_path         = $cbsd::params::relative_path,
   $host_hostname         = $cbsd::params::host_hostname,
@@ -43,7 +43,7 @@ define cbsd::jail (
   $jail_profile          = $cbsd::params::jail_profile,
   $exec_start            = $cbsd::params::exec_start,
   $exec_stop             = $cbsd::params::exec_stop,
-  $emulator              = 'jail',
+  $emulator              = 'bhyve',
 
   $disable               = undef,
   $ensure                = 'present',
@@ -51,6 +51,11 @@ define cbsd::jail (
   $template              = '',
   $status                = 'running',
   $depend                = '',
+  # bhyve
+  $imgsize               = $cbsd::params::imgsize,
+  $vm_os_profile         = $cbsd::params::vm_os_profile,
+  $vm_profile            = $cbsd::params::vm_profile,
+  $vm_ram                = $cbsd::params::vm_ram,
 ) {
   include ::cbsd
 
@@ -65,19 +70,14 @@ define cbsd::jail (
 
   $manage_file_path = "${config_system_dir}/${name}/puppet.conf"
 
-#  $manage_service_ensure = $bool_disable ? {
-#    true    => 'stopped',
-#    default => 'running',
-#  }
-
   $manage_service_autorestart = $bool_service_autorestart ? {
-    true     => "Service[jail-${name}]",
+    true     => "Service[bhyve-${name}]",
     default  => undef,
   }
 
   $manage_file_content = $template ? {
-    ''      => template($cbsd::jail_template),
-    default => template($jail_template),
+    ''      => template($cbsd::bhyve_template),
+    default => template($bhyve_template),
   }
 
   $manage_file_ensure = $bool_disable ? {
@@ -85,37 +85,37 @@ define cbsd::jail (
     default => 'present',
   }
 
-  $check_jail_status_cmd="/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstatus ${name}"
+  $check_bhyve_status_cmd="/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstatus ${name}"
 
   if $ensure == 'absent' {
-    exec { "remove_jail_${name}":
-      command => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jremove inter=0 jname=${name}",
-      unless  => $check_jail_status_cmd,
+    exec { "remove_bhyve_${name}":
+      command => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bremove inter=0 jname=${name}",
+      unless  => $check_bhyve_status_cmd,
     }
   } else {
-    exec {"create_jail_${name}":
-      command     => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jcreate inter=0 jconf=${manage_file_path} autorestart=1",
+    exec {"create_bhyve_${name}":
+      command     => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bcreate inter=0 jconf=${manage_file_path} autorestart=1",
       refreshonly => true,
       onlyif      => "/bin/test -f ${manage_file_path}",
     }
-    file { "jail.conf-${name}":
+    file { "bhyve.conf-${name}":
       ensure  => $ensure,
       path    => $manage_file_path,
       owner   => $cbsd::config_file_owner,
       group   => $cbsd::config_file_group,
       mode    => $cbsd::config_file_mode,
       content => $manage_file_content,
-      notify  => Exec["create_jail_${name}"],
+      notify  => Exec["create_bhyve_${name}"],
       require => File["${config_system_dir}/${name}"],
     }
-    service { "jail-${name}":
+    service { "bhyve-${name}":
       ensure     => $status,
       hasrestart => false,
-      start      => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstart inter=0 ${name}",
-      stop       => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstop inter=0 ${name}",
-      restart    => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jrestart inter=0 ${name}",
-      status     => "/usr/sbin/jls -j ${name}",
-      require    => File["jail.conf-${name}"],
+      start      => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bstart inter=0 ${name}",
+      stop       => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bstop inter=0 ${name}",
+      restart    => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd brestart inter=0 ${name}",
+      status     => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstatus ${name}",
+      require    => File["bhyve.conf-${name}"],
     }
   }
 }

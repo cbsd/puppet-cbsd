@@ -1,6 +1,19 @@
 # install CBSD
-class cbsd::initenv {
-
+class cbsd::initenv(
+  $nodename    = $cbsd::nodename,
+  $nat_enable  = $cbsd::nat_enable,
+  $nodeip      = $cbsd::nodeip,
+  $jnameserver = $cbsd::jnameserver,
+  $nodeippool  = $cbsd::nodeippool,
+  $fbsdrepo    = $cbsd::fbsdrepo,
+  $zfsfeat     = $cbsd::zfsfeat,
+  $hammerfeat  = $cbsd::hammerfeat,
+  $stable      = $cbsd::stable,
+  $parallel    = $cbsd::parallel,
+  $sqlreplica  = $cbsd::sqlreplica,
+  $workdir     = $cbsd::workdir,
+  $natip       = $cbsd::natip,
+) {
     exec { 'create_initenv':
       command     => "/usr/local/cbsd/sudoexec/initenv ${cbsd::params::initenv_tmp}",
       refreshonly => true,
