@@ -40,6 +40,7 @@
 #
 class cbsd (
     $install_method    = $cbsd::params::install_method,
+    $git_url           = $cbsd::params::git_url,
     $my_class          = $cbsd::params::my_class,
     $workdir           = $cbsd::params::workdir,
     $config_system_dir = $cbsd::params::config_system_dir,
