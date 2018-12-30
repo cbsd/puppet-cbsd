@@ -3,9 +3,6 @@ class { 'cbsd':
     nat_enable     => 'pf',
     install_method => 'git',
     git_url        => 'https://github.com/cbsd/cbsd.git',
-    defaults       => {
-      'workdir'    => '/usr/jails',
-    }
 }
 
 cbsd::bhyve { 'mybhyve0':
