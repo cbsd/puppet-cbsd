@@ -114,7 +114,7 @@ define cbsd::bhyve (
       start      => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bstart inter=0 ${name}",
       stop       => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bstop inter=0 ${name}",
       restart    => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd brestart inter=0 ${name}",
-      status     => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd jstatus ${name}",
+      status     => "/bin/test -e /dev/vmm/${name}",
       require    => File["bhyve.conf-${name}"],
     }
   }
