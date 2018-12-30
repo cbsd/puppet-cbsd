@@ -10,8 +10,8 @@ class cbsd::install {
          ensure_resource('package', 'devel/git', {'ensure' => $cbsd::git_ensure})
          ensure_resource('package', 'security/ca_root_nss', {'ensure' => $cbsd::ca_root_nss_ensure})
          exec { "clone_cbsd":
-           command => "/usr/local/bin/git clone ${cbsd::params::git_url} ${cbsd::distdir}",
-           onlyif => "/bin/test ! -f ${cbsd::params::distdir}/.git/config",
+           command => "/usr/local/bin/git clone ${cbsd::git_url} ${cbsd::distdir}",
+           onlyif => "/bin/test ! -f ${cbsd::distdir}/.git/config",
            require => Package['devel/git', 'security/ca_root_nss'],
          }
       }

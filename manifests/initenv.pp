@@ -15,12 +15,12 @@ class cbsd::initenv(
   $natip       = $cbsd::natip,
 ) {
     exec { 'create_initenv':
-      command     => "/usr/local/cbsd/sudoexec/initenv ${cbsd::params::initenv_tmp}",
+      command     => "/usr/local/cbsd/sudoexec/initenv ${cbsd::initenv_tmp}",
       refreshonly => true,
-      onlyif      => "/bin/test -f ${cbsd::params::distdir}/sudoexec/initenv",
+      onlyif      => "/bin/test -f ${cbsd::distdir}/sudoexec/initenv",
     }
 
-    file { $cbsd::params::initenv_tmp:
+    file { $cbsd::initenv_tmp:
       ensure  => present,
       mode    => '0440',
       content => template("${module_name}/initenv.conf.erb"),

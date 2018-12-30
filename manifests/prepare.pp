@@ -10,7 +10,7 @@ class cbsd::prepare inherits cbsd::params  {
     }
     # delete template if not initialized in workdir
     -> exec { 'rm_template':
-      command => "/bin/rm ${cbsd::params::initenv_tmp}",
-      onlyif  => "/bin/test ! -f ${cbsd::params::workdir}/cbsd.conf -a -f ${cbsd::params::initenv_tmp}",
+      command => "/bin/rm ${cbsd::initenv_tmp}",
+      onlyif  => "/bin/test ! -f ${cbsd::workdir}/cbsd.conf -a -f ${cbsd::initenv_tmp}",
     }
 }

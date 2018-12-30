@@ -10,7 +10,7 @@ class cbsd::freebsd_bases (
 
     $ver.each |String $ver| {
       $bases="base_amd64_amd64_${ver}"
-      $bases_path="${cbsd::params::workdir}/basejail/${bases}"
+      $bases_path="${cbsd::workdir}/basejail/${bases}"
       exec { "cbsd_add_bases_${ver}":
         command => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd repo inter=0 action=get sources=base ver=${ver} stable=${stable}",
         unless  => "/bin/test -x ${bases_path}/bin/sh",
