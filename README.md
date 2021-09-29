@@ -80,7 +80,7 @@ cbsd::jail:
     astart: '0'
     status: 'stopped'
     ver: 'native'
-    ip4_addr: '172.16.0.99'
+    ip4_addr: '0'
   'test2':
     pkg_bootstrap: '1'
     astart: '1'
