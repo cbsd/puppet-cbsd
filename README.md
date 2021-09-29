@@ -56,7 +56,7 @@ cbsd::jail { 'myjail1':
 
 ```
 
-Jails can be easily managed from Hiera as well:
+Hiera example:
 ```YAML
 classes:
   - cbsd
@@ -86,6 +86,19 @@ cbsd::jail:
     astart: '1'
     ver: 'native'
     host_hostname: 'myjail0.my.domain'
+
+
+# Create FreeBSD 13.0-ufs cloud VM via bhyve
+cbsd::bhyve:
+  'myvm1':
+    ensure: absent
+    vm_os_type: 'freebsd'
+    host_hostname: 'myvm1.my.domain'
+    vm_os_profile: 'cloud-FreeBSD-ufs-x64-13.0'
+    astart: '0'
+    status: 'stopped'
+    ip4_addr: '10.0.1.109'
+    ci_gw4: '10.0.1.14'
 
 ```
 

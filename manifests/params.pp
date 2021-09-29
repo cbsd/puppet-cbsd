@@ -86,15 +86,19 @@ class cbsd::params {
   # node
   $nodename                      = $::fqdn
   $nat_enable                    = 'pf'
-  $nodeip                        = 'default'
+  $nodeip                        = $::ipaddress
+  #$nodeip6                       = 'auto'
+  $nodeip6                       = "${facts['networking']['ip6']}"
+
   $jnameserver                   = '8.8.8.8,8.8.4.4'
   $nodeippool                    = '10.0.0.0/24'
+  $nodeip6pool                   = '0'
   $fbsdrepo                      = '1'
   $zfsfeat                       = '1'
   $hammerfeat                    = '0'
   $parallel                      = '5'
   $sqlreplica                    = '1'
-  $natip                         = 'default'
+  $natip                         = $::ipaddress
 
   # other/special
   $initenv_tmp                   = '/tmp/initenv.conf'

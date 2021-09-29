@@ -1,6 +1,6 @@
 {
   "name": "olevole-cbsd",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "olevole",
   "summary": "Manage FreeBSD CBSD with Puppet",
   "license": "BSD-2-Clause",
@@ -17,7 +17,9 @@
   "description": "Manage CBSD with Puppet",
   "tags": [
     "cluster",
+    "cloud",
     "cbsd",
+    "freebsd",
     "jail",
     "bhyve",
     "xen"

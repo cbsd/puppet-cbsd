@@ -4,45 +4,11 @@ define cbsd::bhyve (
   $relative_path         = $cbsd::relative_path,
   $host_hostname         = $cbsd::host_hostname,
   $ip4_addr              = $cbsd::ip4_addr,
-  $mount_devfs           = $cbsd::mount_devfs,
-  $allow_mount           = $cbsd::allow_mount,
-  $allow_devfs           = $cbsd::allow_devfs,
-  $allow_nullfs          = $cbsd::allow_nullfs,
-  $mount_fstab           = $cbsd::mount_fstab,
-  $arch                  = $cbsd::arch,
-  $mkhostsfile           = $cbsd::mkhostsfile,
-  $devfs_ruleset         = $cbsd::devfs_ruleset,
-  $ver                   = $cbsd::ver,
-  $basename              = $cbsd::basename,
-  $baserw                = $cbsd::baserw,
-  $mount_src             = $cbsd::mount_src,
-  $mount_obj             = $cbsd::mount_obj,
-  $mount_kernel          = $cbsd::mount_kernel,
-  $mount_ports           = $cbsd::mount_ports,
   $astart                = $cbsd::astart,
   $data                  = $cbsd::data,
-  $vnet                  = $cbsd::vnet,
-  $applytpl              = $cbsd::applytpl,
-  $mdsize                = $cbsd::mdsize,
   $rcconf                = $cbsd::rcconf,
-  $floatresolv           = $cbsd::floatresolv,
   $zfs_snapsrc           = $cbsd::zfs_snapsrc,
-
-  $exec_poststart        = $cbsd::exec_poststart,
-  $exec_poststop         = $cbsd::exec_poststop,
-  $exec_prestart         = $cbsd::prestart,
-  $exec_prestop          = $cbsd::prestop,
-
-  $exec_master_poststart = $cbsd::exec_master_poststart,
-  $exec_master_poststop  = $cbsd::exec_master_poststop,
-  $exec_master_prestart  = $cbsd::exec_master_prestart,
-  $exec_master_prestop   = $cbsd::exec_mster_prestop,
-  $pkg_bootstrap         = $cbsd::pkg_bootstrap,
   $interface             = $cbsd::interface,
-  $jailskeldir           = $cbsd::jailskeldir,
-  $exec_start            = $cbsd::exec_start,
-  $exec_stop             = $cbsd::exec_stop,
-
   $disable               = undef,
   $ensure                = 'present',
   $service_autorestart   = true,
@@ -54,6 +20,7 @@ define cbsd::bhyve (
   $vm_os_profile         = $cbsd::vm_os_profile,
   $vm_os_type            = $cbsd::vm_os_type,
   $vm_ram                = $cbsd::vm_ram,
+  $ci_gw4                = $cbsd::ci_gw4,
 ) {
   include ::cbsd
 
@@ -92,9 +59,9 @@ define cbsd::bhyve (
     }
   } else {
     exec {"create_bhyve_${name}":
-      command     => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bcreate inter=0 jconf=${manage_file_path} autorestart=1",
-      refreshonly => true,
-      onlyif      => "/bin/test -f ${manage_file_path}",
+      #command     => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bcreate inter=0 jconf=${manage_file_path} autorestart=1",
+      command     => "/bin/date",
+      onlyif      => [ "/bin/test -f ${manage_file_path}", "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd bstatus jname=${name} > /dev/null 2>&1" ]
     }
     file { "bhyve.conf-${name}":
       ensure  => $ensure,

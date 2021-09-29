@@ -41,7 +41,9 @@ class cbsd (
   $nat_enable          = $cbsd::params::nat_enable,
   $natip               = $cbsd::params::natip,
   $nodeip              = $cbsd::params::nodeip,
+  $nodeip6             = $cbsd::params::nodeip6,
   $nodeippool          = $cbsd::params::nodeippool,
+  $nodeip6pool         = $cbsd::params::nodeip6pool,
   $nodename            = $cbsd::params::nodename,
   $parallel            = $cbsd::params::parallel,
   $sqlreplica          = $cbsd::params::sqlreplica,
@@ -66,7 +68,7 @@ class cbsd (
   -> Class['cbsd::initenv']
   -> Class['cbsd::service']
 
-  # create_resources(powerdns::config, $powerdns_auth_config, $powerdns_auth_defaults)
   # create defined cbsd
   create_resources('cbsd::jail', $jail)
+  create_resources('cbsd::bhyve', $bhyve)
 }
