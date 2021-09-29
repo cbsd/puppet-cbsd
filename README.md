@@ -40,7 +40,6 @@ class { 'cbsd':
 # fetch specified base from the repo
 class { "cbsd::freebsd_bases":
   ver    => [ '13.0' ],
-  stable => 1,
 }
 
 cbsd::jail { 'myjail0':
