@@ -51,9 +51,35 @@ cbsd::jail { 'myjail1':
 
 Jails can be easily managed from Hiera as well:
 ```YAML
-cbsd::jails:
-  myjail0:
+classes:
+  - cbsd
+  - cbsd::freebsd_bases
+
+cbsd::jnameserver: "8.8.8.8,8.8.4.4"
+cbsd::nat_enable: "pf"
+cbsd::workdir: "/usr/jails"
+cbsd::nodeippool: "172.16.0.0/24"
+cbsd::natip: '%{::ipaddress}'
+
+cbsd::freebsd_bases::ver: [ 'native' ]
+#cbsd::freebsd_bases::ver:
+#  - '13.0'
+#  - '12.2'
+
+cbsd::jail:
+  'cbsdpuppet1':
+    pkg_bootstrap: '1'
+    jprofile: 'cbsdpuppet'
+    astart: '0'
+    status: 'stopped'
+    ver: 'native'
+    ip4_addr: '172.16.0.99'
+  'test2':
+    pkg_bootstrap: '1'
+    astart: '1'
+    ver: 'native'
     host_hostname: 'myjail0.my.domain'
+
 ```
 
 ## Limitations
