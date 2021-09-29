@@ -16,35 +16,42 @@ CBSD is wrapper around FreeBSD jail bhyve and XEN. For more information please v
 ## Usage
 
 ```Puppet
-
 class { 'cbsd':
-	jnameserver => "8.8.8.8",
-	nat_enable => '1',
+  #install_method => "git",
+  jnameserver    => "8.8.8.8,8.8.4.4",
+  nat_enable     => 'pf',
+  workdir        => '/usr/jails',
+  nodeippool     => '172.16.0.0/24',
+  natip          => $::ipaddress,
 }
+```
 
+```Puppet
 # If you install cbsd manually: don't use pkg for
 # installing CBSD:
-
 class { 'cbsd':
-	manage_repo => false,
-	workdir => '/usr/jails',
+  manage_repo => false,
+  workdir     => '/usr/jails',
 }
+```
 
+```Puppet
+# Manage FreeBSD bases for jail
 # fetch specified base from the repo
 class { "cbsd::freebsd_bases":
-	ver => [ '12' ],
-	stable => 1,
+  ver    => [ '13.0' ],
+  stable => 1,
 }
 
 cbsd::jail { 'myjail0':
-	pkg_bootstrap => '0',
-	host_hostname => 'myjail0.my.domain',
+  pkg_bootstrap => '0',
+  host_hostname => 'myjail0.my.domain',
 }
 cbsd::jail { 'myjail1':
-	pkg_bootstrap => '0',
-	host_hostname => 'myjail1.my.domain',
-	ensure => 'absent',
-	status => 'stopped'
+  pkg_bootstrap => '0',
+  host_hostname => 'myjail1.my.domain',
+  ensure        => 'absent',
+  status        => 'stopped'
 }
 
 ```
