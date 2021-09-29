@@ -13,7 +13,21 @@
       "version_requirement": ">= 1.0.0"
     }
   ],
-  "data_provider": null,
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "13",
+        "14"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.21.0 < 8.0.0"
+    }
+  ],
   "description": "Manage CBSD with Puppet",
   "tags": [
     "cluster",
@@ -24,13 +38,7 @@
     "bhyve",
     "xen"
   ],
-  "operatingsystem_support": [
-    {
-      "operatingsystem": "FreeBSD",
-      "operatingsystemrelease": [
-        "13",
-        "14"
-      ]
-    }
-  ]
+  "pdk-version": "2.2.0",
+  "template-url": "pdk-default#2.2.0",
+  "template-ref": "tags/2.2.0-0-g2381db6"
 }
