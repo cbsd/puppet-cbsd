@@ -84,7 +84,7 @@ cbsd::jail:
 
 ## Limitations
 
-Works with FreeBSD 10+ and CBSD 11.0.0+
+Works with FreeBSD 13+ and CBSD 13.0.0+
 
 Currently only jail is supported by this module. Bhyve and XEN - work in progress.
 
