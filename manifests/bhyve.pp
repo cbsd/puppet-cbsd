@@ -1,4 +1,4 @@
-# manage bhyve emulator
+# manage bhyve
 define cbsd::bhyve (
   $workdir               = $cbsd::workdir,
   $relative_path         = $cbsd::relative_path,
@@ -40,10 +40,8 @@ define cbsd::bhyve (
   $pkg_bootstrap         = $cbsd::pkg_bootstrap,
   $interface             = $cbsd::interface,
   $jailskeldir           = $cbsd::jailskeldir,
-  $jail_profile          = $cbsd::jail_profile,
   $exec_start            = $cbsd::exec_start,
   $exec_stop             = $cbsd::exec_stop,
-  $emulator              = 'bhyve',
 
   $disable               = undef,
   $ensure                = 'present',
@@ -77,7 +75,7 @@ define cbsd::bhyve (
 
   $manage_file_content = $template ? {
     ''      => template($cbsd::bhyve_template),
-    default => template($bhyve_template),
+    default => template($cbsd::bhyve_template),
   }
 
   $manage_file_ensure = $bool_disable ? {

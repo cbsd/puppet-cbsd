@@ -3,12 +3,15 @@
   "version": "0.1.4",
   "author": "olevole",
   "summary": "Manage FreeBSD CBSD with Puppet",
-  "license": "BSD",
+  "license": "BSD-2-Clause",
   "source": "https://github.com/cbsd/puppet-cbsd",
   "project_page": "https://github.com/cbsd/puppet-cbsd",
   "issues_url": "https://github.com/cbsd/puppet-cbsd/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0"
+    }
   ],
   "data_provider": null,
   "description": "Manage CBSD with Puppet",
@@ -23,9 +26,8 @@
     {
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
-        "11",
-        "12",
-        "12"
+        "13",
+        "14"
       ]
     }
   ]

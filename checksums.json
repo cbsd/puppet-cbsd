@@ -1,0 +1,23 @@
+{
+  "Gemfile": "1690d72fce57c48e403368d6fc089038",
+  "README.md": "837878635dcca375ac7782cf1d6dc92a",
+  "Rakefile": "3044cde52b8cd8508c8400076a66ef11",
+  "examples/initbhyve.pp": "b3a55d12aef74d42fc281e96fa36714b",
+  "examples/initjail.pp": "fdff47b53fddaefb7e6dd4467ce95bec",
+  "lib/facter/cbsd_version.rb": "1753869eb0e54b8b206d48ab74ea7150",
+  "manifests/bhyve.pp": "d624ff5851bfd8c6153808a7438675b3",
+  "manifests/freebsd_bases.pp": "d0babb4c4047d06e0e1374aacb24bbbe",
+  "manifests/init.pp": "d82390e889a71cdbeca366b045163fae",
+  "manifests/initenv.pp": "c3e6a14e86f3dc7d91654c639b80d48e",
+  "manifests/install.pp": "33a981e4b57224cf69a4bcd2e8df0096",
+  "manifests/jail.pp": "e7b4fa97a86c4d5a11a78b6679b7aee0",
+  "manifests/params.pp": "8d8f199c034776aaa1feaf35c9683ea3",
+  "manifests/prepare.pp": "71127a2d24a4d86765a13cb916161390",
+  "metadata.json": "6664a474f35ac13a034aa106bb16247d",
+  "spec/classes/init_spec.rb": "f0ca00f5b0b87879c8e54487580401d7",
+  "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+  "templates/bhyve.conf.erb": "bf2eda8ae3fa7c89aecbfcdbe916931e",
+  "templates/initenv.conf.erb": "5e169c4a610647199768fc02afde72a7",
+  "templates/jail.conf.erb": "76d206e635aa7d61bfc2f61b9cdcbc9f",
+  "tests/init.pp": "e397a18425e49b85fe1ab9a780e36b74"
+}

@@ -7,6 +7,7 @@ class cbsd::prepare inherits cbsd::params  {
       ensure => 'present',
       gid    => 'cbsd',
       shell  => '/bin/sh',
+      home   => $cbsd::workdir,
     }
     # delete template if not initialized in workdir
     -> exec { 'rm_template':

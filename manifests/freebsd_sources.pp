@@ -1,5 +1,5 @@
-# manage FreeBSD bases for CBSD
-class cbsd::freebsd_bases (
+# manage FreeBSD sources for CBSD
+class cbsd::freebsd_sources (
   Optional[Tuple] $ver = undef,
 ) inherits cbsd::params {
 
@@ -8,17 +8,16 @@ class cbsd::freebsd_bases (
   }
 
   $ver.each |String $ver| {
-
     if $ver == "native" {
       $rver = $facts['kernelversion']
     } else {
       $rver = $ver
     }
-    $bases="base_amd64_amd64_${rver}"
-    $bases_path="${cbsd::workdir}/basejail/${bases}"
-    exec { "cbsd_add_bases_${rver}":
-      command => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd repo inter=0 action=get sources=base ver=${rver}",
-      unless  => "/bin/test -x ${bases_path}/bin/sh",
+    $sources="src_${rver}"
+    $sources_path="${cbsd::workdir}/src/${sources}"
+    exec { "cbsd_add_sources_${rver}":
+      command => "/usr/bin/env NOCOLOR=1 /usr/local/bin/cbsd srcup ver=${rver}",
+      unless  => "/bin/test -r ${sources_path}/src/Makefile",
       onlyif  => '/usr/local/bin/cbsd version',
     }
   }
